@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Steganography App</h1>
+    
+    <form action="/hide" method="post" enctype="multipart/form-data">
+        <label for="file">Choose an image:</label>
+        <input type="file" id="file" name="file" accept="image/*" required>
+        
+        <label for="secret_msg">Enter secret message:</label>
+        <input type="text" id="secret_msg" name="secret_msg" required>
+        
+        <button type="submit">Hide Message</button>
+        
+        <div class="error-message">
+            {% if request.query_params.error %}
+                {{ request.query_params.error }}
+            {% endif %}
+        </div>
+    </form>
+    
+    <form action="/reveal" method="post" enctype="multipart/form-data">
+        <label for="reveal_file">Choose an image to reveal:</label>
+        <input type="file" id="reveal_file" name="file" accept="image/*" required>
+        
+        <button type="submit">Reveal Message</button>
+        
+        <div class="error-message">
+            {% if request.query_params.reveal_error %}
+                {{ request.query_params.reveal_error }}
+            {% endif %}
+        </div>
+    </form>
+</body>
+</html>
